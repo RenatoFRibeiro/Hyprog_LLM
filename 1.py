@@ -1,16 +1,17 @@
 #imports
 import re
 
-
+# tokenizing the hobbit book
 with open("Hyprog_LLM\dataset\Hobbit.txt", "r", encoding="utf-8") as f:
-    raw_text = f.read()
-    
-#print("Total number of character:", len(raw_text))
+    raw_hobbit = f.read()
 
-raw_text_test = raw_text[:52]
+split_hobbit = re.split(r'([,.:;?_!"()\']|--|\s)', raw_hobbit)
 
-#print(raw_text_test)
+tokenized_hobbit = [
+    item for item in split_hobbit 
+    if (item is not None and 
+        isinstance(item, str) and 
+        item.strip())
+]
 
-result = re.split(r'([,.])|\s', raw_text)
-
-print(result)
+print(len(tokenized_hobbit))
